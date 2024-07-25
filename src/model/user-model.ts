@@ -17,6 +17,10 @@ export type CreateUserRequest = {
     name: string;
     password: string;
 }
+export type LoginUserRequest = {
+    username: string;
+    password: string;
+}
 /**
 + * Converts a User object to a UserResponse object.
 + *

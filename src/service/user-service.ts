@@ -6,6 +6,7 @@ import { UserValidation } from "../validation/user-validation";
 import { Validation } from "../validation/validation";
 import bcrypt from "bcrypt";
 import {v4 as uuid} from "uuid";
+import { User } from "@prisma/client";
 
 /**
  * A class that provides methods for user service operations.
@@ -62,6 +63,9 @@ export class UserService{
         const response = toUserResponse(user);
         response.token = user.token!;
         return response;
+    }
+    static async get(user: User): Promise<UserResponse> {
+        return toUserResponse(user);
     }
 }
 

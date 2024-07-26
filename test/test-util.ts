@@ -12,7 +12,7 @@ export class UserTest{
         await prismaClient.user.create({
             data: {
                 username: "test",
-                name: "Test",
+                name: "test",
                 password: await bcrypt.hash("test", 10),
                 token: "test"
             }

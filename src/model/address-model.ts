@@ -39,3 +39,4 @@ export type GetAddressRequest = {
     contact_id: number,
     id: number
 }
+export type RemoveAddressRequest = GetAddressRequest

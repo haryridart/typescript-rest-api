@@ -192,3 +192,43 @@ describe("PUT /api/contacts/:idContact/addresses::addressId", () => {
         expect(response.body.errors).toBeDefined();
     });
 });
+describe("DELETE /api/contacts/:idContact/addresses::addressId", () => {
+    beforeEach(async () => {
+        await UserTest.create();
+        await ContactTest.create();
+        await AddressTest.create();
+    });
+
+    afterEach(async () => {
+        await AddressTest.deleteAll();
+        await ContactTest.deleteAll();
+        await UserTest.delete();
+    });
+    it("should be able to delete address", async () => {
+        const contact = await ContactTest.get();
+        const address = await AddressTest.get();
+        const response =  await supertest(web)
+            .delete(`/api/contacts/${contact.id}/addresses/${address.id}`)
+            .set("X-API-TOKEN", "test");
+        logger.debug(response.body);
+        expect(response.status).toBe(200);
+        expect(response.body.data).toBe("OK");
+    });
+    it("should reject delete address if contact not found", async () => {
+        const response =  await supertest(web)
+            .delete(`/api/contacts/99999/addresses/99999`)
+            .set("X-API-TOKEN", "test");
+        logger.debug(response.body);
+        expect(response.status).toBe(404);
+        expect(response.body.errors).toBeDefined();
+    });
+    it("should reject delete address if address not found", async () => {
+        const contact = await ContactTest.get();
+        const response =  await supertest(web)
+            .delete(`/api/contacts/${contact.id}/addresses/99999`)
+            .set("X-API-TOKEN", "test");
+        logger.debug(response.body);
+        expect(response.status).toBe(404);
+        expect(response.body.errors).toBeDefined();
+    });
+});

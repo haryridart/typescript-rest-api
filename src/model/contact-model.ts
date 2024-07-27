@@ -30,3 +30,10 @@ export function toContactResponse(contact: Contact): ContactResponse {
         phone:      contact.phone
     }
 }
+export type SearchContactRequest = {
+    name? : string;
+    phone?: string;
+    email?: string;
+    page: number;
+    size: number;
+}
